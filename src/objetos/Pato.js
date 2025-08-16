@@ -1,9 +1,11 @@
+import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
+
 export class Pato {
     constructor(escena, x, y) {
         this.escena = escena;
         this.sprite = escena.add.sprite(x, y, 'pato');
-        this.sprite.setScale(1.2);
-        this.velocidad = 200;
+        this.sprite.setScale(ConfiguracionDelJuego.pato.escala);
+        this.velocidad = ConfiguracionDelJuego.pato.velocidad;
     }
 
     mover(flechas, wasd) {
@@ -25,8 +27,9 @@ export class Pato {
         }
 
         // No dejar que el pato se salga de la pantalla
-        this.sprite.x = Phaser.Math.Clamp(this.sprite.x, 16, 784);
-        this.sprite.y = Phaser.Math.Clamp(this.sprite.y, 16, 584);
+        const margen = ConfiguracionDelJuego.pato.margenDePantalla;
+        this.sprite.x = Phaser.Math.Clamp(this.sprite.x, margen, ConfiguracionDelJuego.pantalla.ancho - margen);
+        this.sprite.y = Phaser.Math.Clamp(this.sprite.y, margen, ConfiguracionDelJuego.pantalla.alto - margen);
     }
 
     obtenerLimites() {
@@ -34,6 +37,6 @@ export class Pato {
     }
 
     ponerColorRojo() {
-        this.sprite.setTint(0xFF0000);
+        this.sprite.setTint(ConfiguracionDelJuego.gameOver.colorDelPatoAlPerder);
     }
 }

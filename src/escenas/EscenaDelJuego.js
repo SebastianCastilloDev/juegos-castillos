@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { CreadorDeSprites } from '../sprites/CreadorDeSprites.js';
 import { Pato } from '../objetos/Pato.js';
 import { ManejadorDeVehiculos } from '../managers/ManejadorDeVehiculos.js';
+import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
 
 export class EscenaDelJuego extends Phaser.Scene {
     constructor() {
@@ -24,7 +25,11 @@ export class EscenaDelJuego extends Phaser.Scene {
         this.crearFondo();
 
         // Crear el pato del jugador
-        this.miPato = new Pato(this, 400, 550);
+        this.miPato = new Pato(
+            this,
+            ConfiguracionDelJuego.pato.posicionInicialX,
+            ConfiguracionDelJuego.pato.posicionInicialY
+        );
 
         // Crear el manejador de vehículos
         this.manejadorDeVehiculos = new ManejadorDeVehiculos(this);
@@ -56,18 +61,30 @@ export class EscenaDelJuego extends Phaser.Scene {
     }
 
     crearInterfaz() {
+        const config = ConfiguracionDelJuego;
+
         // Mostrar los puntos en pantalla
-        this.textoDeLosPuntos = this.add.text(16, 16, 'Puntos: 0', {
-            fontSize: '24px',
-            fill: '#FFFFFF'
-        });
+        this.textoDeLosPuntos = this.add.text(
+            config.puntuacion.posicionTextoPuntosX,
+            config.puntuacion.posicionTextoPuntosY,
+            config.textos.mensajes.puntos + '0',
+            {
+                fontSize: config.textos.tamañoPuntos,
+                fill: config.textos.colorPuntos
+            }
+        );
 
         // Mostrar las instrucciones
-        this.add.text(400, 50, 'Usa las flechas o WASD para mover el pato', {
-            fontSize: '18px',
-            fill: '#FFFFFF',
-            align: 'center'
-        }).setOrigin(0.5);
+        this.add.text(
+            config.pantalla.ancho / 2,
+            50,
+            config.textos.mensajes.instrucciones,
+            {
+                fontSize: config.textos.tamañoInstrucciones,
+                fill: config.textos.colorInstrucciones,
+                align: 'center'
+            }
+        ).setOrigin(0.5);
     }
 
     update() {
@@ -80,7 +97,7 @@ export class EscenaDelJuego extends Phaser.Scene {
         const puntosGanados = this.manejadorDeVehiculos.actualizarTodos();
         if (puntosGanados > 0) {
             this.misPuntos += puntosGanados;
-            this.textoDeLosPuntos.setText('Puntos: ' + this.misPuntos);
+            this.textoDeLosPuntos.setText(ConfiguracionDelJuego.textos.mensajes.puntos + this.misPuntos);
         }
 
         // Verificar colisiones
@@ -90,6 +107,8 @@ export class EscenaDelJuego extends Phaser.Scene {
     }
 
     terminarElJuego() {
+        const config = ConfiguracionDelJuego;
+
         this.juegoTerminado = true;
         this.manejadorDeVehiculos.detenerCreacion();
 
@@ -97,20 +116,30 @@ export class EscenaDelJuego extends Phaser.Scene {
         this.miPato.ponerColorRojo();
 
         // Mostrar mensaje de juego terminado
-        this.add.text(400, 300, '¡JUEGO TERMINADO!', {
-            fontSize: '48px',
-            fill: '#FF0000',
-            align: 'center'
-        }).setOrigin(0.5);
+        this.add.text(
+            config.pantalla.ancho / 2,
+            config.pantalla.alto / 2,
+            config.textos.mensajes.gameOver,
+            {
+                fontSize: config.textos.tamañoGameOver,
+                fill: config.textos.colorGameOver,
+                align: 'center'
+            }
+        ).setOrigin(0.5);
 
-        this.add.text(400, 350, 'Presiona R para jugar otra vez', {
-            fontSize: '24px',
-            fill: '#FFFFFF',
-            align: 'center'
-        }).setOrigin(0.5);
+        this.add.text(
+            config.pantalla.ancho / 2,
+            config.pantalla.alto / 2 + 50,
+            config.textos.mensajes.reiniciar,
+            {
+                fontSize: config.textos.tamañoReinicio,
+                fill: config.textos.colorReinicio,
+                align: 'center'
+            }
+        ).setOrigin(0.5);
 
-        // Permitir reiniciar con R
-        this.input.keyboard.once('keydown-R', () => {
+        // Permitir reiniciar con la tecla configurada
+        this.input.keyboard.once('keydown-' + config.controles.teclaDeReinicio, () => {
             this.scene.restart();
         });
     }

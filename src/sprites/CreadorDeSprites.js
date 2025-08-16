@@ -1,27 +1,30 @@
+import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
+
 export class CreadorDeSprites {
 
     static crearPato(escena) {
         // Crear el dibujo del pato más realista
         const dibujoDelPato = escena.add.graphics();
+        const colores = ConfiguracionDelJuego.visual.colores;
 
         // Cuerpo del pato (óvalo amarillo)
-        dibujoDelPato.fillStyle(0xFFD700); // Amarillo
+        dibujoDelPato.fillStyle(colores.cuerpoPato);
         dibujoDelPato.fillEllipse(16, 20, 24, 18);
 
         // Cabeza del pato (círculo más pequeño)
-        dibujoDelPato.fillStyle(0xFFA500); // Naranja más oscuro
+        dibujoDelPato.fillStyle(colores.cabezaPato);
         dibujoDelPato.fillCircle(16, 10, 8);
 
         // Pico del pato (triángulo naranja)
-        dibujoDelPato.fillStyle(0xFF8C00); // Naranja oscuro
+        dibujoDelPato.fillStyle(colores.picoPato);
         dibujoDelPato.fillTriangle(16, 8, 12, 12, 20, 12);
 
         // Ojo del pato (punto negro)
-        dibujoDelPato.fillStyle(0x000000); // Negro
+        dibujoDelPato.fillStyle(colores.ojoPato);
         dibujoDelPato.fillCircle(18, 8, 2);
 
         // Patitas del pato (líneas naranjas)
-        dibujoDelPato.lineStyle(2, 0xFF8C00);
+        dibujoDelPato.lineStyle(2, colores.patasPato);
         dibujoDelPato.lineBetween(12, 28, 10, 32);
         dibujoDelPato.lineBetween(20, 28, 22, 32);
 

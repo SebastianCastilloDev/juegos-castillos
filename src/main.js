@@ -1,19 +1,20 @@
 import Phaser from 'phaser';
 import { EscenaDelJuego } from './escenas/EscenaDelJuego.js';
+import { ConfiguracionDelJuego } from './config/ConfiguracionDelJuego.js';
 
-// Configuración del juego
+// Configuración del juego usando el archivo de configuración
 const configuracionDelJuego = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: ConfiguracionDelJuego.pantalla.ancho,
+    height: ConfiguracionDelJuego.pantalla.alto,
     parent: 'juego-contenedor',
-    backgroundColor: '#2c3e50',
+    backgroundColor: ConfiguracionDelJuego.pantalla.colorDeFondo,
     scene: EscenaDelJuego,
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false
+            debug: ConfiguracionDelJuego.desarrollo.mostrarColisiones
         }
     }
 };

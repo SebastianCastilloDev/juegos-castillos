@@ -1,14 +1,15 @@
 import { Vehiculo } from '../objetos/Vehiculo.js';
+import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
 
 export class ManejadorDeVehiculos {
     constructor(escena) {
         this.escena = escena;
         this.vehiculos = [];
-        this.filasDeVehiculos = [150, 250, 350, 450];
+        this.filasDeVehiculos = ConfiguracionDelJuego.vehiculos.filasDeCarretera;
 
         // Crear temporizador para hacer aparecer vehículos
         this.temporizador = escena.time.addEvent({
-            delay: 800, // Cada 0.8 segundos
+            delay: ConfiguracionDelJuego.vehiculos.tiempoEntreVehiculos,
             callback: this.crearVehiculo,
             callbackScope: this,
             loop: true
@@ -17,10 +18,15 @@ export class ManejadorDeVehiculos {
 
     crearVehiculo() {
         const filaElegida = Phaser.Utils.Array.GetRandom(this.filasDeVehiculos);
-        const esUnCamion = Math.random() < 0.3; // 30% de probabilidad de camión
+        const esUnCamion = Math.random() < ConfiguracionDelJuego.vehiculos.probabilidadDeCamion;
         const tipoDeVehiculo = esUnCamion ? 'camion' : 'auto';
 
-        const nuevoVehiculo = new Vehiculo(this.escena, 850, filaElegida, tipoDeVehiculo);
+        const nuevoVehiculo = new Vehiculo(
+            this.escena,
+            ConfiguracionDelJuego.vehiculos.posicionDeAparicion,
+            filaElegida,
+            tipoDeVehiculo
+        );
         this.vehiculos.push(nuevoVehiculo);
     }
 
@@ -33,7 +39,7 @@ export class ManejadorDeVehiculos {
             if (vehiculo.esteFueraDePantalla()) {
                 vehiculo.destruir();
                 this.vehiculos.splice(i, 1);
-                return 10; // Puntos por esquivar un vehículo
+                return ConfiguracionDelJuego.puntuacion.puntosPorVehiculoEsquivado;
             }
         }
         return 0;

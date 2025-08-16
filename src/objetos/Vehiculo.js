@@ -1,8 +1,13 @@
+import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
+
 export class Vehiculo {
     constructor(escena, x, y, tipo) {
         this.escena = escena;
         this.sprite = escena.add.sprite(x, y, tipo);
-        this.velocidad = Phaser.Math.Between(30, 80);
+        this.velocidad = Phaser.Math.Between(
+            ConfiguracionDelJuego.vehiculos.velocidadMinima,
+            ConfiguracionDelJuego.vehiculos.velocidadMaxima
+        );
         this.tipo = tipo;
     }
 
@@ -11,7 +16,7 @@ export class Vehiculo {
     }
 
     esteFueraDePantalla() {
-        return this.sprite.x < -100;
+        return this.sprite.x < ConfiguracionDelJuego.vehiculos.limiteFueraDePantalla;
     }
 
     destruir() {
