@@ -1,2 +1,2 @@
-- gquiero un pato tratando de que no lo atropellen en medio de una carreteracon muchos autos
+- quiero un pato tratando de que no lo atropellen en medio de una carreteracon muchos autos
 - la idea es poner camiones y autos conduciendo de derecha a isquirda y el pato tiene que saltar
