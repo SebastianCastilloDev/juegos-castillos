@@ -12,7 +12,7 @@ export const ConfiguracionDelJuego = {
 
     // 🦆 CONFIGURACIÓN DEL PATO
     pato: {
-        velocidad: 200,              // Qué tan rápido se mueve el pato
+        velocidad: 600,              // Qué tan rápido se mueve el pato
         posicionInicialX: 400,       // Donde aparece el pato (horizontal)
         posicionInicialY: 550,       // Donde aparece el pato (vertical)
         escala: 1.2,                 // Qué tan grande se ve el pato
@@ -22,11 +22,11 @@ export const ConfiguracionDelJuego = {
     // 🚗 CONFIGURACIÓN DE VEHÍCULOS
     vehiculos: {
         // Frecuencia de aparición
-        tiempoEntreVehiculos: 800,   // Milisegundos entre cada vehículo (menos = más vehículos)
+        tiempoEntreVehiculos: 250,   // Milisegundos entre cada vehículo (menos = más vehículos)
 
         // Velocidades
-        velocidadMinima: 30,         // Velocidad más lenta de vehículos
-        velocidadMaxima: 80,         // Velocidad más rápida de vehículos
+        velocidadMinima: 10,         // Velocidad más lenta de vehículos
+        velocidadMaxima: 20,         // Velocidad más rápida de vehículos
 
         // Probabilidades
         probabilidadDeCamion: 0.3,   // 30% camiones, 70% autos (0.0 = solo autos, 1.0 = solo camiones)
