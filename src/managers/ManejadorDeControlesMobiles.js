@@ -211,7 +211,7 @@ export class ManejadorDeControlesMobiles {
         }
     }
 
-    esMobile() {
+    esDispositivoMovil() {
         return this.esMobile;
     }
 

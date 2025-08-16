@@ -85,7 +85,7 @@ export class EscenaDelJuego extends Phaser.Scene {
         );
 
         // Mostrar las instrucciones apropiadas según el dispositivo
-        const esMobile = this.controlesMobiles.esMobile();
+        const esMobile = this.controlesMobiles.esDispositivoMovil();
         const mensajeInstrucciones = esMobile ?
             config.textos.mensajes.instruccionesMobile :
             config.textos.mensajes.instrucciones;
@@ -152,7 +152,7 @@ export class EscenaDelJuego extends Phaser.Scene {
         ).setOrigin(0.5);
 
         // Mostrar mensaje de reinicio apropiado según el dispositivo
-        const esMobile = this.controlesMobiles.esMobile();
+        const esMobile = this.controlesMobiles.esDispositivoMovil();
         const mensajeReinicio = esMobile ?
             config.textos.mensajes.reiniciarMobile :
             config.textos.mensajes.reiniciar;
