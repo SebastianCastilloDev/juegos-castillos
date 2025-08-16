@@ -12,7 +12,7 @@ export const ConfiguracionDelJuego = {
 
     // 🦆 CONFIGURACIÓN DEL PATO
     pato: {
-        velocidad: 600,              // Qué tan rápido se mueve el pato
+        velocidad: 400,              // Qué tan rápido se mueve el pato
         posicionInicialX: 400,       // Donde aparece el pato (horizontal)
         posicionInicialY: 550,       // Donde aparece el pato (vertical)
         escala: 1.2,                 // Qué tan grande se ve el pato
