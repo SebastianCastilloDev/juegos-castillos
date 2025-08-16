@@ -120,7 +120,21 @@ export const ConfiguracionDelJuego = {
     controles: {
         usarFlechas: true,               // Permitir usar flechas del teclado
         usarWASD: true,                  // Permitir usar WASD
-        teclaDeReinicio: 'R'             // Tecla para reiniciar el juego
+        teclaDeReinicio: 'R',            // Tecla para reiniciar el juego
+
+        // Controles móviles
+        habilitarControlesTactiles: true,    // Activar controles táctiles
+        mostrarBotonesEnPantalla: true,      // Mostrar botones virtuales
+        sensibilidadTactil: 1.2,            // Qué tan sensible es el toque
+
+        // Posiciones de botones virtuales
+        botonesVirtuales: {
+            tamaño: 60,                      // Tamaño de los botones
+            margen: 20,                      // Distancia del borde
+            opacidad: 0.6,                   // Transparencia (0.0 a 1.0)
+            colorFondo: 0x000000,            // Color de fondo de botones
+            colorTexto: 0xFFFFFF             // Color del texto/flecha
+        }
     },
 
     // 💀 CONFIGURACIÓN DE GAME OVER
@@ -148,8 +162,10 @@ export const ConfiguracionDelJuego = {
         mensajes: {
             puntos: 'Puntos: ',
             instrucciones: 'Esquiva autos, camiones y balas de helicóptero!',
+            instruccionesMobile: 'Toca los botones o desliza para mover el pato',
             gameOver: '¡JUEGO TERMINADO!',
-            reiniciar: 'Presiona R para jugar otra vez'
+            reiniciar: 'Presiona R para jugar otra vez',
+            reiniciarMobile: 'Toca aquí para jugar otra vez'
         }
     },
 

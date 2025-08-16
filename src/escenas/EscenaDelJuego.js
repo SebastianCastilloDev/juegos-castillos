@@ -3,6 +3,7 @@ import { CreadorDeSprites } from '../sprites/CreadorDeSprites.js';
 import { Pato } from '../objetos/Pato.js';
 import { ManejadorDeVehiculos } from '../managers/ManejadorDeVehiculos.js';
 import { ManejadorDeHelicopteros } from '../managers/ManejadorDeHelicopteros.js';
+import { ManejadorDeControlesMobiles } from '../managers/ManejadorDeControlesMobiles.js';
 import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
 
 export class EscenaDelJuego extends Phaser.Scene {
@@ -43,6 +44,9 @@ export class EscenaDelJuego extends Phaser.Scene {
         // Configurar controles
         this.configurarControles();
 
+        // Configurar controles móviles
+        this.controlesMobiles = new ManejadorDeControlesMobiles(this);
+
         // Variables del juego
         this.misPuntos = 0;
         this.juegoTerminado = false;
@@ -80,11 +84,16 @@ export class EscenaDelJuego extends Phaser.Scene {
             }
         );
 
-        // Mostrar las instrucciones
+        // Mostrar las instrucciones apropiadas según el dispositivo
+        const esMobile = this.controlesMobiles.esMobile();
+        const mensajeInstrucciones = esMobile ?
+            config.textos.mensajes.instruccionesMobile :
+            config.textos.mensajes.instrucciones;
+
         this.add.text(
             config.pantalla.ancho / 2,
             50,
-            config.textos.mensajes.instrucciones,
+            mensajeInstrucciones,
             {
                 fontSize: config.textos.tamañoInstrucciones,
                 fill: config.textos.colorInstrucciones,
@@ -96,8 +105,8 @@ export class EscenaDelJuego extends Phaser.Scene {
     update() {
         if (this.juegoTerminado) return;
 
-        // Mover el pato
-        this.miPato.mover(this.flechasDelTeclado, this.teclasWASD);
+        // Mover el pato (incluyendo controles móviles)
+        this.miPato.mover(this.flechasDelTeclado, this.teclasWASD, this.controlesMobiles);
 
         // Actualizar vehículos y obtener puntos
         const puntosGanados = this.manejadorDeVehiculos.actualizarTodos();
@@ -142,10 +151,16 @@ export class EscenaDelJuego extends Phaser.Scene {
             }
         ).setOrigin(0.5);
 
+        // Mostrar mensaje de reinicio apropiado según el dispositivo
+        const esMobile = this.controlesMobiles.esMobile();
+        const mensajeReinicio = esMobile ?
+            config.textos.mensajes.reiniciarMobile :
+            config.textos.mensajes.reiniciar;
+
         this.add.text(
             config.pantalla.ancho / 2,
             config.pantalla.alto / 2 + 50,
-            config.textos.mensajes.reiniciar,
+            mensajeReinicio,
             {
                 fontSize: config.textos.tamañoReinicio,
                 fill: config.textos.colorReinicio,
@@ -153,9 +168,16 @@ export class EscenaDelJuego extends Phaser.Scene {
             }
         ).setOrigin(0.5);
 
-        // Permitir reiniciar con la tecla configurada
-        this.input.keyboard.once('keydown-' + config.controles.teclaDeReinicio, () => {
-            this.scene.restart();
-        });
+        // Mostrar botón de reinicio móvil si es necesario
+        if (esMobile) {
+            this.controlesMobiles.mostrarBotonReinicio();
+        }
+
+        // Permitir reiniciar con la tecla configurada (solo en desktop)
+        if (!esMobile) {
+            this.input.keyboard.once('keydown-' + config.controles.teclaDeReinicio, () => {
+                this.scene.restart();
+            });
+        }
     }
 }

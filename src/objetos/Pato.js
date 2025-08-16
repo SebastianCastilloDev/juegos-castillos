@@ -8,22 +8,28 @@ export class Pato {
         this.velocidad = ConfiguracionDelJuego.pato.velocidad;
     }
 
-    mover(flechas, wasd) {
+    mover(flechas, wasd, controlesMobiles = null) {
+        const deltaTime = this.escena.game.loop.delta / 1000;
+        const velocidadMovimiento = this.velocidad * deltaTime;
+
+        // Obtener estado de controles móviles si están disponibles
+        const estadoMobile = controlesMobiles ? controlesMobiles.obtenerEstadoDeControles() : null;
+
         // Mover hacia la izquierda
-        if (flechas.left.isDown || wasd.A.isDown) {
-            this.sprite.x -= this.velocidad * this.escena.game.loop.delta / 1000;
+        if (flechas.left.isDown || wasd.A.isDown || (estadoMobile && estadoMobile.izquierda)) {
+            this.sprite.x -= velocidadMovimiento;
         }
         // Mover hacia la derecha
-        if (flechas.right.isDown || wasd.D.isDown) {
-            this.sprite.x += this.velocidad * this.escena.game.loop.delta / 1000;
+        if (flechas.right.isDown || wasd.D.isDown || (estadoMobile && estadoMobile.derecha)) {
+            this.sprite.x += velocidadMovimiento;
         }
         // Mover hacia arriba
-        if (flechas.up.isDown || wasd.W.isDown) {
-            this.sprite.y -= this.velocidad * this.escena.game.loop.delta / 1000;
+        if (flechas.up.isDown || wasd.W.isDown || (estadoMobile && estadoMobile.arriba)) {
+            this.sprite.y -= velocidadMovimiento;
         }
         // Mover hacia abajo
-        if (flechas.down.isDown || wasd.S.isDown) {
-            this.sprite.y += this.velocidad * this.escena.game.loop.delta / 1000;
+        if (flechas.down.isDown || wasd.S.isDown || (estadoMobile && estadoMobile.abajo)) {
+            this.sprite.y += velocidadMovimiento;
         }
 
         // No dejar que el pato se salga de la pantalla

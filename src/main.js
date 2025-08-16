@@ -16,6 +16,15 @@ const configuracionDelJuego = {
             gravity: { y: 0 },
             debug: ConfiguracionDelJuego.desarrollo.mostrarColisiones
         }
+    },
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: ConfiguracionDelJuego.pantalla.ancho,
+        height: ConfiguracionDelJuego.pantalla.alto
+    },
+    input: {
+        activePointers: 3 // Permitir hasta 3 toques simultáneos
     }
 };
 
