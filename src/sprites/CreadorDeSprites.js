@@ -110,4 +110,63 @@ export class CreadorDeSprites {
         dibujoDelCamion.generateTexture('camion', 80, 40);
         dibujoDelCamion.destroy();
     }
+
+    static crearHelicoptero(escena) {
+        // Crear el dibujo del helicóptero
+        const dibujoDelHelicoptero = escena.add.graphics();
+        const colores = ConfiguracionDelJuego.visual.colores;
+
+        // Cuerpo principal del helicóptero
+        dibujoDelHelicoptero.fillStyle(colores.cuerpoHelicoptero);
+        dibujoDelHelicoptero.fillEllipse(40, 25, 70, 20);
+
+        // Cabina del piloto (burbuja transparente)
+        dibujoDelHelicoptero.fillStyle(colores.cabinaPiloto);
+        dibujoDelHelicoptero.fillEllipse(25, 20, 30, 15);
+
+        // Cola del helicóptero
+        dibujoDelHelicoptero.fillStyle(colores.cuerpoHelicoptero);
+        dibujoDelHelicoptero.fillRect(65, 22, 25, 6);
+
+        // Hélice principal (círculo giratorio)
+        dibujoDelHelicoptero.lineStyle(3, colores.helicesHelicoptero);
+        dibujoDelHelicoptero.lineBetween(10, 15, 70, 15);
+        dibujoDelHelicoptero.lineBetween(40, 5, 40, 25);
+
+        // Hélice de cola
+        dibujoDelHelicoptero.lineStyle(2, colores.helicesHelicoptero);
+        dibujoDelHelicoptero.lineBetween(88, 18, 92, 22);
+        dibujoDelHelicoptero.lineBetween(88, 22, 92, 18);
+
+        // Patines de aterrizaje
+        dibujoDelHelicoptero.lineStyle(3, colores.armasHelicoptero);
+        dibujoDelHelicoptero.lineBetween(15, 35, 65, 35);
+        dibujoDelHelicoptero.lineBetween(20, 32, 20, 38);
+        dibujoDelHelicoptero.lineBetween(60, 32, 60, 38);
+
+        // Armas (cañones pequeños)
+        dibujoDelHelicoptero.fillStyle(colores.armasHelicoptero);
+        dibujoDelHelicoptero.fillRect(30, 30, 4, 8);
+        dibujoDelHelicoptero.fillRect(46, 30, 4, 8);
+
+        dibujoDelHelicoptero.generateTexture('helicoptero', 95, 45);
+        dibujoDelHelicoptero.destroy();
+    }
+
+    static crearBala(escena) {
+        // Crear el dibujo de la bala
+        const dibujoDeLaBala = escena.add.graphics();
+        const colores = ConfiguracionDelJuego.visual.colores;
+
+        // Bala simple (círculo pequeño brillante)
+        dibujoDeLaBala.fillStyle(colores.colorDeBalas);
+        dibujoDeLaBala.fillCircle(3, 3, 3);
+
+        // Efecto de brillo
+        dibujoDeLaBala.fillStyle(0xFFFFFF);
+        dibujoDeLaBala.fillCircle(3, 3, 1);
+
+        dibujoDeLaBala.generateTexture('bala', 6, 6);
+        dibujoDeLaBala.destroy();
+    }
 }

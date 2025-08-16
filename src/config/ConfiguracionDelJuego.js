@@ -41,6 +41,27 @@ export const ConfiguracionDelJuego = {
         limiteFueraDePantalla: -100
     },
 
+    // 🚁 CONFIGURACIÓN DEL HELICÓPTERO
+    helicoptero: {
+        // Frecuencia de aparición
+        tiempoEntreHelicopteros: 1000,   // Cada 1 segundos aparece un helicóptero
+
+        // Movimiento
+        velocidad: 10,                   // Qué tan rápido vuela
+        alturaDeVuelo: 20,              // A qué altura vuela (más bajo = más cerca del pato)
+
+        // Disparos
+        tiempoEntreDisparos: 400,      // Cada 1.2 segundos dispara
+        velocidadDeBalas: 10,          // Qué tan rápido van las balas
+
+        // Posiciones
+        posicionDeAparicion: -100,      // Aparece por la izquierda
+        limiteFueraDePantalla: 900,     // Se va por la derecha
+
+        // Probabilidad de aparecer
+        probabilidadDeAparicion: 0.7    // 70% de probabilidad cada vez que puede aparecer
+    },
+
     // 🏆 CONFIGURACIÓN DE PUNTUACIÓN
     puntuacion: {
         puntosPorVehiculoEsquivado: 10,  // Puntos que ganas cuando un vehículo sale de pantalla
@@ -82,7 +103,16 @@ export const ConfiguracionDelJuego = {
             detallesCamion: 0x000080,    // Azul marino
             ruedasCamion: 0x000000,      // Negro
             llantasCamion: 0x666666,     // Gris
-            farosCamion: 0xFFFF00        // Amarillo
+            farosCamion: 0xFFFF00,       // Amarillo
+
+            // Helicóptero
+            cuerpoHelicoptero: 0x228B22,    // Verde militar
+            cabinaPiloto: 0x87CEEB,         // Azul cielo
+            helicesHelicoptero: 0x696969,   // Gris oscuro
+            armasHelicoptero: 0x2F4F4F,     // Gris pizarra
+
+            // Balas
+            colorDeBalas: 0xFFFF00          // Amarillo brillante
         }
     },
 
@@ -117,7 +147,7 @@ export const ConfiguracionDelJuego = {
         // Mensajes del juego
         mensajes: {
             puntos: 'Puntos: ',
-            instrucciones: 'Usa las flechas o WASD para mover el pato',
+            instrucciones: 'Esquiva autos, camiones y balas de helicóptero!',
             gameOver: '¡JUEGO TERMINADO!',
             reiniciar: 'Presiona R para jugar otra vez'
         }

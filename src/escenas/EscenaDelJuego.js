@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { CreadorDeSprites } from '../sprites/CreadorDeSprites.js';
 import { Pato } from '../objetos/Pato.js';
 import { ManejadorDeVehiculos } from '../managers/ManejadorDeVehiculos.js';
+import { ManejadorDeHelicopteros } from '../managers/ManejadorDeHelicopteros.js';
 import { ConfiguracionDelJuego } from '../config/ConfiguracionDelJuego.js';
 
 export class EscenaDelJuego extends Phaser.Scene {
@@ -18,6 +19,8 @@ export class EscenaDelJuego extends Phaser.Scene {
         CreadorDeSprites.crearPato(this);
         CreadorDeSprites.crearAuto(this);
         CreadorDeSprites.crearCamion(this);
+        CreadorDeSprites.crearHelicoptero(this);
+        CreadorDeSprites.crearBala(this);
     }
 
     create() {
@@ -33,6 +36,9 @@ export class EscenaDelJuego extends Phaser.Scene {
 
         // Crear el manejador de vehículos
         this.manejadorDeVehiculos = new ManejadorDeVehiculos(this);
+
+        // Crear el manejador de helicópteros
+        this.manejadorDeHelicopteros = new ManejadorDeHelicopteros(this);
 
         // Configurar controles
         this.configurarControles();
@@ -100,8 +106,16 @@ export class EscenaDelJuego extends Phaser.Scene {
             this.textoDeLosPuntos.setText(ConfiguracionDelJuego.textos.mensajes.puntos + this.misPuntos);
         }
 
-        // Verificar colisiones
+        // Actualizar helicópteros
+        this.manejadorDeHelicopteros.actualizarTodos();
+
+        // Verificar colisiones con vehículos
         if (this.manejadorDeVehiculos.verificarColisionCon(this.miPato)) {
+            this.terminarElJuego();
+        }
+
+        // Verificar colisiones con helicópteros y balas
+        if (this.manejadorDeHelicopteros.verificarColisionConPato(this.miPato)) {
             this.terminarElJuego();
         }
     }
@@ -111,6 +125,7 @@ export class EscenaDelJuego extends Phaser.Scene {
 
         this.juegoTerminado = true;
         this.manejadorDeVehiculos.detenerCreacion();
+        this.manejadorDeHelicopteros.detenerCreacion();
 
         // Hacer que el pato se vea rojo
         this.miPato.ponerColorRojo();
