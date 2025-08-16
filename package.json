@@ -1,0 +1,21 @@
+{
+  "name": "pato-cruzando",
+  "version": "1.0.0",
+  "description": "Juego del pato cruzando la carretera - estilo Frogger",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "npm run dev"
+  },
+  "keywords": ["juego", "phaser", "pato", "javascript"],
+  "author": "Tu nombre",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "phaser": "^3.70.0"
+  }
+}
